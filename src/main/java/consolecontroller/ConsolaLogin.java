@@ -1,4 +1,7 @@
-package org.ejemplo;
+package consolecontroller;
+
+import datacontroller.DatosLogin;
+import datacontroller.Login;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -19,8 +22,12 @@ public class ConsolaLogin {
      * Controla el ciclo principal del menú del sistema.
      */
     public void menu() {
-        mostrarOpciones();
-        ejecutarOpcion(sc.next());
+        String opcion;
+        do {
+            mostrarOpciones();
+            opcion = sc.next();
+            ejecutarOpcion(opcion);
+        }  while (opcion == "2");
     }
 
     /**
@@ -39,10 +46,9 @@ public class ConsolaLogin {
      * @param opcion opción ingresada por el usuario
      */
     private void ejecutarOpcion(String opcion) {
-        // TODO: Si es "1" llamar a manejarLogin, si es "2" salir
         switch (opcion) {
             case "1" -> manejarLogin();
-            case "2" -> System.exit(1);
+            case "2" -> System.out.println("Cerrando Programa");
             default -> System.out.println("Opcion invalida");
         }
     }

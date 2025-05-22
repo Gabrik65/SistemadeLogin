@@ -1,4 +1,4 @@
-package org.ejemplo;
+package datacontroller;
 
 /**
  * Clase encargada de verificar las credenciales del usuario.

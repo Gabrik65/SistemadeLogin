@@ -1,4 +1,6 @@
-package org.ejemplo;
+package main;
+
+import consolecontroller.ConsolaLogin;
 
 import java.io.IOException;
 
