@@ -1,5 +1,6 @@
 package org.ejemplo;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -8,8 +9,11 @@ import java.util.Scanner;
  */
 public class ConsolaLogin {
     Scanner sc = new Scanner(System.in);
-    DatosLogin datos = new DatosLogin();
+    DatosLogin datos = new DatosLogin("login.txt");
     Login login = new Login();
+
+    public ConsolaLogin() throws IOException {
+    }
 
     /**
      * Controla el ciclo principal del menú del sistema.
@@ -54,6 +58,14 @@ public class ConsolaLogin {
         System.out.println("Ingrese Contraseña");
         String pw = sc.next();
         DatosLogin datosLogin = datos;
-        login.autenticar(usuario,pw,datosLogin);
+
+        if(login.autenticar(usuario,pw,datosLogin)){
+            System.out.println("Usuario " + usuario + " ingresó correctamente");
+        }else {
+            System.out.println("Usuario o contraseña incorrectos.");
+        }
+
+        sc.nextLine();
+        menu();
     }
 }

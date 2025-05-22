@@ -1,26 +1,31 @@
 package org.ejemplo;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * Clase responsable de cargar las credenciales desde un archivo.
- */
 public class DatosLogin {
     public ArrayList<String> credenciales = new ArrayList<>();
 
-    /**
-     * Constructor que inicializa las credenciales desde el archivo.
-     */
+    // Constructor para pruebas que no cargan archivo
     public DatosLogin() {
-        cargarUsuarios();
+        // lista vacía por defecto
     }
 
-    /**
-     * Lee el archivo login.txt y agrega las líneas válidas a la lista de credenciales.
-     */
-    private void cargarUsuarios() {
-        // TODO: Abrir archivo login.txt
-        // TODO: Leer línea por línea y agregar solo las que contienen ";"
-        // TODO: Ignorar líneas vacías o mal formateadas
+    public DatosLogin(String nombreArchivo) throws IOException {
+        cargarUsuarios(nombreArchivo);
+    }
+
+    private void cargarUsuarios(String nombreArchivo) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                linea = linea.trim();
+                if (!linea.isEmpty() && linea.contains(";")) {
+                    credenciales.add(linea);
+                }
+            }
+        }
     }
 }
