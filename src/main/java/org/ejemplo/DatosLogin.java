@@ -22,7 +22,7 @@ public class DatosLogin {
             String linea;
             while ((linea = br.readLine()) != null) {
                 linea = linea.trim();
-                if (!linea.isEmpty() && linea.contains(";")) {
+                if (linea.contains(";")) {
                     credenciales.add(linea);
                 }
             }

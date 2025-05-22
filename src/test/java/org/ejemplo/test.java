@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public class test {
 
     @Test
@@ -42,7 +40,7 @@ public class test {
 
     @Test
     void testArchivoNoEncontrado() {
-        assertThrows(IOException.class, () -> {
+        Assertions.assertThrows(IOException.class, () -> {
             new DatosLogin("archivo_que_no_existe.txt");
         });
     }
