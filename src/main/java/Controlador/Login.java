@@ -1,4 +1,6 @@
-package datacontroller;
+package Controlador;
+
+import Modelo.DatosLogin;
 
 /**
  * Clase encargada de verificar las credenciales del usuario.

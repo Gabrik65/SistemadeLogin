@@ -1,7 +1,7 @@
 package org.ejemplo;
 
-import datacontroller.DatosLogin;
-import datacontroller.Login;
+import Modelo.DatosLogin;
+import Controlador.Login;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

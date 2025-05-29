@@ -1,7 +1,7 @@
-package consolecontroller;
+package Vista;
 
-import datacontroller.DatosLogin;
-import datacontroller.Login;
+import Modelo.DatosLogin;
+import Controlador.Login;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -22,12 +22,12 @@ public class ConsolaLogin {
      * Controla el ciclo principal del menú del sistema.
      */
     public void menu() {
-        String opcion;
+        int opcion;
         do {
             mostrarOpciones();
-            opcion = sc.next();
+            opcion = stringToint(sc.next());
             ejecutarOpcion(opcion);
-        }  while (opcion == "2");
+        }  while (opcion == 2);
     }
 
     /**
@@ -45,10 +45,10 @@ public class ConsolaLogin {
      *
      * @param opcion opción ingresada por el usuario
      */
-    private void ejecutarOpcion(String opcion) {
+    private void ejecutarOpcion(int opcion) {
         switch (opcion) {
-            case "1" -> manejarLogin();
-            case "2" -> System.out.println("Cerrando Programa");
+            case 1 -> manejarLogin();
+            case 2 -> System.out.println("Cerrando Programa");
             default -> System.out.println("Opcion invalida");
         }
     }
@@ -73,5 +73,27 @@ public class ConsolaLogin {
 
         sc.nextLine();
         menu();
+    }
+
+
+    private static int stringToint(String number){
+        int num = 0;
+
+        if(isInt(number)){
+            num = Integer.parseInt(number);
+        }else {
+            System.out.println("Argumento Invalido");
+        }
+
+        return num;
+    }
+
+    private static boolean isInt(String number){
+        try {
+            Integer.parseInt(number);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

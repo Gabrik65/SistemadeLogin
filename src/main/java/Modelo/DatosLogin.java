@@ -1,4 +1,4 @@
-package datacontroller;
+package Modelo;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

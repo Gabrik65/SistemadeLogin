@@ -1,6 +1,6 @@
-package main;
+package Launcher;
 
-import consolecontroller.ConsolaLogin;
+import Vista.ConsolaLogin;
 
 import java.io.IOException;
 
