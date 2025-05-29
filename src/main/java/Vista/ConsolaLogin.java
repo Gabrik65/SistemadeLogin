@@ -1,9 +1,9 @@
 package Vista;
 
+import Controlador.SesionActiva;
 import Modelo.DatosLogin;
 import Controlador.Login;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -12,11 +12,9 @@ import java.util.Scanner;
  */
 public class ConsolaLogin {
     Scanner sc = new Scanner(System.in);
-    DatosLogin datos = new DatosLogin("login.txt");
+    DatosLogin datos = new DatosLogin();
     Login login = new Login();
 
-    public ConsolaLogin() throws IOException {
-    }
 
     /**
      * Controla el ciclo principal del menú del sistema.
@@ -27,7 +25,7 @@ public class ConsolaLogin {
             mostrarOpciones();
             opcion = stringToint(sc.next());
             ejecutarOpcion(opcion);
-        }  while (opcion == 2);
+        }  while (opcion != 2);
     }
 
     /**
@@ -47,9 +45,15 @@ public class ConsolaLogin {
      */
     private void ejecutarOpcion(int opcion) {
         switch (opcion) {
-            case 1 -> manejarLogin();
-            case 2 -> System.out.println("Cerrando Programa");
-            default -> System.out.println("Opcion invalida");
+            case 1:
+                manejarLogin();
+                break;
+            case 2:
+                System.out.println("Cerrando Programa");
+                System.exit(2);
+            default:
+                System.out.println("Opcion invalida");
+                break;
         }
     }
 
@@ -66,7 +70,9 @@ public class ConsolaLogin {
         DatosLogin datosLogin = datos;
 
         if(login.autenticar(usuario,pw,datosLogin)){
-            System.out.println("Usuario " + usuario + " ingresó correctamente");
+            System.out.println("Inicio de sesión exitoso.");
+            SesionActiva sesion = new SesionActiva(usuario);
+            sesion.menuSesion();
         }else {
             System.out.println("Usuario o contraseña incorrectos.");
         }

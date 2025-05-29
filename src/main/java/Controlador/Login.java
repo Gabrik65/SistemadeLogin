@@ -8,7 +8,7 @@ import Modelo.DatosLogin;
 public class Login {
 
     /**
-     * Verifica si existe una línea con el formato exacto "usuario; clave".
+     * Verifica si existe una línea con el formato exacto "usuario;clave".
      *
      * @param usuario nombre de usuario ingresado
      * @param clave contraseña ingresada
@@ -16,10 +16,8 @@ public class Login {
      * @return true si las credenciales son válidas, false en caso contrario
      */
     public boolean autenticar(String usuario, String clave, DatosLogin datos) {
-        // TODO: Crear String intento = usuario + ";" + clave
-        // TODO: Recorrer datos.credenciales y comparar con intento
         String intento = usuario + ";" + clave;
-        for (String credencial : datos.credenciales) {
+        for (String credencial : datos.getCredenciales()) {
             if (credencial.equals(intento)) {
                 return true;
             }
