@@ -12,10 +12,10 @@ import java.util.Scanner;
  */
 public class DatosLogin {
     private final String archivo = "login.txt";
-    private final ArrayList<String> credenciales = new ArrayList<>();
+    private final ArrayList<Usuario> usuarios = new ArrayList<>();
 
     /**
-     * Constructor que inicializa el archivo y carga las credenciales.
+     * Constructor que inicializa el archivo y carga los usuarios.
      */
     public DatosLogin() {
         asegurarArchivo();
@@ -23,16 +23,16 @@ public class DatosLogin {
     }
 
     /**
-     * Devuelve la lista de credenciales cargadas.
+     * Devuelve la lista de usuarios cargados.
      */
-    public ArrayList<String> getCredenciales() {
-        return credenciales;
+    public ArrayList<Usuario> getUsuarios() {
+        return usuarios;
     }
 
     public void asegurarArchivo() {
         File file = new File(archivo);
-        if(file.exists()) {
-            System.out.println("Registro de usuarios no encontrado");
+        if (!file.exists()) {
+            System.out.println("Registro de usuarios no encontrado. Creando archivo...");
             crearArchivoLogin();
         }
     }
@@ -52,17 +52,14 @@ public class DatosLogin {
     }
 
     private void escribirCredencialesPorDefecto(File file) {
-        try {
-            FileWriter writer = new FileWriter(file);
+        try (FileWriter writer = new FileWriter(file)) {
             writer.write("admin;1234\n");
-            writer.close();
         } catch (IOException e) {
             throw new RuntimeException("Error al escribir en el archivo: " + archivo, e);
         }
     }
 
-
-        /**
+    /**
      * Carga los pares usuario - clave desde el archivo a la lista.
      */
     private void cargarUsuarios() {
@@ -71,11 +68,15 @@ public class DatosLogin {
             while (scanner.hasNextLine()) {
                 String linea = scanner.nextLine().trim();
                 if (linea.contains(";")) {
-                    credenciales.add(linea);
+                    String[] partes = linea.split(";");
+                    if (partes.length == 2) {
+                        usuarios.add(new Usuario(partes[0], partes[1]));
+                    }
                 }
             }
         } catch (FileNotFoundException e) {
             System.err.println("Archivo no encontrado: " + archivo);
+            escribirCredencialesPorDefecto(file);
         }
     }
 }
