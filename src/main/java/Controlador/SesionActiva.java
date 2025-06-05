@@ -74,8 +74,6 @@ public class SesionActiva {
 
     private void cerrarPrograma() {
         System.out.println("Sesión cerrada.");
-        System.out.println("Programa cerrando.");
-        System.exit(1);
     }
 
     private boolean esAdmin() {

@@ -12,9 +12,9 @@ import java.util.Scanner;
  * Controla el menú principal y el flujo de login.
  */
 public class ConsolaLogin {
-    Scanner sc = new Scanner(System.in);
-    DatosLogin datos = new DatosLogin();
-    Login login = new Login();
+    private final Scanner sc = new Scanner(System.in);
+    private final DatosLogin datos = new DatosLogin();
+    private final Login login = new Login();
 
 
     /**
