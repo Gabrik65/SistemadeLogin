@@ -8,7 +8,7 @@ import Modelo.DatosLogin;
 public class Login {
 
     /**
-     * Verifica si existe una línea con el formato exacto "usuario;clave".
+     * Verifica si existe una línea con el formato exacto "usuario - clave".
      *
      * @param usuario nombre de usuario ingresado
      * @param clave contraseña ingresada

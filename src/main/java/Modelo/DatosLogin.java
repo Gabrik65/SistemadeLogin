@@ -63,7 +63,7 @@ public class DatosLogin {
 
 
         /**
-     * Carga los pares usuario;clave desde el archivo a la lista.
+     * Carga los pares usuario - clave desde el archivo a la lista.
      */
     private void cargarUsuarios() {
         File file = new File(archivo);
