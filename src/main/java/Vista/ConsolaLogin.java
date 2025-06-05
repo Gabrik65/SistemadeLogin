@@ -33,7 +33,6 @@ public class ConsolaLogin {
      * Muestra las opciones disponibles para el usuario.
      */
     private void mostrarOpciones() {
-        // TODO: Mostrar "1. Iniciar sesión", "2. Salir"
         System.out.println("Menu Principal");
         System.out.println("1- Iniciar sesión");
         System.out.println("2- Salir");
@@ -62,25 +61,25 @@ public class ConsolaLogin {
      * Solicita usuario y contraseña, y muestra el resultado.
      */
     private void manejarLogin() {
-        // TODO: Pedir usuario y contraseña por consola
-        // TODO: Llamar a login.autenticar() y mostrar mensaje según resultado
         System.out.println("Ingrese Nombre de Usuario");
-        String usuario = sc.next();
+        String nombre = sc.next();
         System.out.println("Ingrese Contraseña");
-        String pw = sc.next();
+        String clave = sc.next();
+
         DatosLogin datosLogin = datos;
 
-        if(login.autenticar(usuario,pw,datosLogin)){
+        if (login.autenticar(nombre, clave, datosLogin)) {
             System.out.println("Inicio de sesión exitoso.");
-            SesionActiva sesion = new SesionActiva(usuario);
+            SesionActiva sesion = new SesionActiva(new Usuario(nombre, clave));
             sesion.menuSesion();
-        }else {
+        } else {
             System.out.println("Usuario o contraseña incorrectos.");
         }
 
         sc.nextLine();
         menu();
     }
+
 
 
     private static int stringToint(String number){

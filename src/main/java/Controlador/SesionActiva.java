@@ -2,6 +2,7 @@ package Controlador;
 
 import Modelo.DatosSesion;
 import Modelo.GestorUsuarios;
+import Modelo.Usuario;
 
 import java.util.Scanner;
 
@@ -9,15 +10,14 @@ import java.util.Scanner;
  * Representa la sesión de un usuario logueado.
  */
 public class SesionActiva {
-    private final String usuario;
+    private final Usuario usuario;
     private final Scanner scanner = new Scanner(System.in);
     private final DatosSesion datosSesion;
 
-    public SesionActiva(String usuario) {
+    public SesionActiva(Usuario usuario) {
         this.usuario = usuario;
-        this.datosSesion = new DatosSesion(usuario);
+        this.datosSesion = new DatosSesion(usuario.getNombre());
     }
-
 
     public void menuSesion() {
         boolean salir = false;
@@ -33,7 +33,7 @@ public class SesionActiva {
     }
 
     private void imprimirOpciones() {
-        System.out.println("\n--- Menú de Usuario (" + usuario + ") ---");
+        System.out.println("\n--- Menú de Usuario (" + usuario.getNombre() + ") ---");
         System.out.println("1. Ver tareas");
         System.out.println("2. Escribir nueva tarea");
 
@@ -79,7 +79,7 @@ public class SesionActiva {
     }
 
     private boolean esAdmin() {
-        return "admin".equalsIgnoreCase(usuario);
+        return "admin".equals(usuario.getNombre());
     }
 
     /**
