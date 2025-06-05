@@ -3,6 +3,7 @@ package Vista;
 import Controlador.SesionActiva;
 import Modelo.DatosLogin;
 import Controlador.Login;
+import Modelo.Usuario;
 
 import java.util.Scanner;
 

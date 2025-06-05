@@ -1,24 +1,24 @@
 package Controlador;
 
 import Modelo.DatosLogin;
+import Modelo.Usuario;
 
 /**
- * Clase encargada de verificar las credenciales del usuario.
+ * Clase encargada de la lógica de autenticación.
  */
 public class Login {
 
     /**
-     * Verifica si existe una línea con el formato exacto "usuario - clave".
+     * Verifica si las credenciales son válidas.
      *
-     * @param usuario nombre de usuario ingresado
+     * @param usuario nombre ingresado
      * @param clave contraseña ingresada
-     * @param datos objeto DatosLogin que contiene la lista de credenciales
-     * @return true si las credenciales son válidas, false en caso contrario
+     * @param datos instancia de DatosLogin
+     * @return Usuario autenticado si es válido, null si no
      */
-    public boolean autenticar(String usuario, String clave, DatosLogin datos) {
-        String intento = usuario + ";" + clave;
-        for (String credencial : datos.getCredenciales()) {
-            if (credencial.equals(intento)) {
+    public Boolean autenticar(String usuario, String clave, DatosLogin datos) {
+        for (Usuario u : datos.getUsuarios()) {
+            if (u.getNombre().equals(usuario) && u.getClave().equals(clave)) {
                 return true;
             }
         }

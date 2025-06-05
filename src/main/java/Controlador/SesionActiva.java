@@ -87,13 +87,7 @@ public class SesionActiva {
      */
     private void escribirTarea() {
         System.out.print("Ingrese la nueva tarea: ");
-        String tarea = scanner.nextLine();
-        boolean exito = datosSesion.escribirTarea(tarea);
-        if (exito) {
-            System.out.println("Tarea guardada con éxito.");
-        } else {
-            System.out.println("No se pudo guardar la tarea.");
-        }
+        datosSesion.agregarTarea(scanner.nextLine());
     }
 
     /**
