@@ -2,6 +2,7 @@ package Modelo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,7 +18,7 @@ public class DatosLogin {
      * Constructor que inicializa el archivo y carga las credenciales.
      */
     public DatosLogin() {
-        crearArchivoSiNoExiste();
+        asegurarArchivo();
         cargarUsuarios();
     }
 
@@ -28,21 +29,40 @@ public class DatosLogin {
         return credenciales;
     }
 
-    /**
-     * Crea el archivo login.txt si no existe.
-     */
-    private void crearArchivoSiNoExiste() {
+    public void asegurarArchivo() {
         File file = new File(archivo);
-        try {
-            if (file.createNewFile()) {
-                System.out.println("Archivo creado: " + archivo);
-            }
-        } catch (IOException e) {
-            System.err.println("Error al crear el archivo: " + e.getMessage());
+        if(file.exists()) {
+            System.out.println("Registro de usuarios no encontrado");
+            crearArchivoLogin();
         }
     }
 
     /**
+     * Crea el archivo login.txt si no existe.
+     */
+    private void crearArchivoLogin() {
+        File file = new File(archivo);
+        try {
+            if (file.createNewFile()) {
+                escribirCredencialesPorDefecto(file);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error al crear el archivo: " + archivo, e);
+        }
+    }
+
+    private void escribirCredencialesPorDefecto(File file) {
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write("admin;1234\n");
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException("Error al escribir en el archivo: " + archivo, e);
+        }
+    }
+
+
+        /**
      * Carga los pares usuario;clave desde el archivo a la lista.
      */
     private void cargarUsuarios() {
