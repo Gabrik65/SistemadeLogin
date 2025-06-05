@@ -36,12 +36,13 @@ public class SesionActiva {
         System.out.println("\n--- Menú de Usuario (" + usuario.getNombre() + ") ---");
         System.out.println("1. Ver tareas");
         System.out.println("2. Escribir nueva tarea");
+        System.out.println("3. Eliminar una tarea");
 
         if (esAdmin()) {
-            System.out.println("3. Registrar nuevo usuario");
-            System.out.println("4. Salir");
+            System.out.println("4. Registrar nuevo usuario");
+            System.out.println("5. Salir");
         } else {
-            System.out.println("3. Salir");
+            System.out.println("4. Salir");
         }
     }
 
@@ -54,13 +55,16 @@ public class SesionActiva {
                 escribirTarea();
                 break;
             case "3":
+                escribirTarea();
+                break;
+            case "4":
                 if (esAdmin()) {
                     registrarUsuario();
                 } else {
                     return true; // salir
                 }
                 break;
-            case "4":
+            case "5":
                 if (esAdmin()) {
                     return true; // salir
                 }
@@ -89,6 +93,15 @@ public class SesionActiva {
     }
 
     /**
+     * Da listado de tareas y deja eliminar.
+     */
+    private void eliminarTarea() {
+        datosSesion.mostrarTareas();
+        System.out.print("Ingrese num de la tarea: ");
+        datosSesion.eliminarTarea(stringToint(scanner.nextLine()));
+        // aun no checkea si es que el num es mas grande que la lista
+    }
+    /**
      * Solo para admin: registra un nuevo usuario.
      */
     private void registrarUsuario() {
@@ -105,6 +118,29 @@ public class SesionActiva {
             System.out.println("Usuario registrado exitosamente.");
         } else {
             System.out.println("No se pudo registrar el usuario (puede que ya exista).");
+        }
+    }
+
+
+
+    private static int stringToint(String number){
+        int num = 0;
+
+        if(isInt(number)){
+            num = Integer.parseInt(number);
+        }else {
+            System.out.println("Argumento Invalido");
+        }
+
+        return num;
+    }
+
+    private static boolean isInt(String number){
+        try {
+            Integer.parseInt(number);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }

@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class DatosSesion {
     private final String archivo;
-    private final ArrayList<Tarea> tareas = new ArrayList<>();
+    protected final ArrayList<Tarea> tareas = new ArrayList<>();
 
     /**
      * Constructor que carga las tareas desde el archivo del usuario.
@@ -78,6 +78,15 @@ public class DatosSesion {
             System.err.println("Error al guardar tarea: " + e.getMessage());
         }
     }
+
+
+    /**
+     * Elimina una tarea registrada para el usuario.
+     */
+    public void eliminarTarea(int num) {
+        tareas.remove(num);
+    }
+
 
     /**
      * Devuelve la lista de tareas.

@@ -66,9 +66,7 @@ public class ConsolaLogin {
         System.out.println("Ingrese Contraseña");
         String clave = sc.next();
 
-        DatosLogin datosLogin = datos;
-
-        if (login.autenticar(nombre, clave, datosLogin)) {
+        if (login.autenticar(nombre, clave, datos)) {
             System.out.println("Inicio de sesión exitoso.");
             SesionActiva sesion = new SesionActiva(new Usuario(nombre, clave));
             sesion.menuSesion();
