@@ -37,13 +37,11 @@ public class SesionActiva {
         System.out.println("\n--- Menú de Usuario (" + usuario.getNombre() + ") ---");
         System.out.println("1. Ver tareas");
         System.out.println("2. Escribir nueva tarea");
-        System.out.println("3. Eliminar una tarea");
-
         if (esAdmin()) {
-            System.out.println("4. Registrar nuevo usuario");
-            System.out.println("5. Salir");
-        } else {
+            System.out.println("3. Registrar nuevo usuario");
             System.out.println("4. Salir");
+        } else {
+            System.out.println("3. Salir");
         }
     }
 
@@ -56,16 +54,13 @@ public class SesionActiva {
                 escribirTarea();
                 break;
             case "3":
-                escribirTarea();
-                break;
-            case "4":
                 if (esAdmin()) {
                     registrarUsuario();
                 } else {
                     return true; // salir
                 }
                 break;
-            case "5":
+            case "4":
                 if (esAdmin()) {
                     return true; // salir
                 }
@@ -90,15 +85,19 @@ public class SesionActiva {
      */
     private void escribirTarea() {
         System.out.print("Ingrese la nueva tarea: ");
-        String tarea = scanner.nextLine();
-        System.out.print("Tarea completada: (Y/N)");
-        String completed = scanner.nextLine();
+        String tarea;
         do {
-            System.out.print("Opcion invalida");
-            System.out.print("¿Tarea completada? (Y/N): ");
+            tarea = scanner.nextLine();
+        }while (Objects.equals(tarea, ""));
+        String completed = "hehe";
+        do {
+            System.out.println("¿Tarea completada? (y/n): ");
             completed = scanner.nextLine().trim();
-        } while (!completed.equalsIgnoreCase("Y") && !completed.equalsIgnoreCase("N"));
-        boolean completada = Objects.equals(completed, "Y");
+            if (!completed.equalsIgnoreCase("y") && !completed.equalsIgnoreCase("N")){
+                System.out.print("Opcion invalida - ");
+            }
+        } while (!completed.equalsIgnoreCase("y") && !completed.equalsIgnoreCase("N"));
+        boolean completada = Objects.equals(completed.toLowerCase(), "y");
         datosSesion.agregarTarea(tarea, completada);
     }
 

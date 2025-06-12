@@ -48,17 +48,27 @@ public class DatosSesion {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String linea = scanner.nextLine().trim();
-                Boolean completed = false;
-                if (!linea.isEmpty() & completed) {
-                    tareas.add(new Tarea(linea,true));
-                } else if (!linea.isEmpty() & !completed) {
-                    tareas.add(new Tarea(linea,false));
-                }
+                readLine(linea);
             }
         } catch (IOException e) {
             System.err.println("Error al leer archivo de tareas: " + e.getMessage());
         }
     }
+
+
+    private void readLine(String linea) {
+        if (!linea.isEmpty()) {
+            String[] partes = linea.split(";");
+            if (partes.length == 2) {
+                String nombreTarea = partes[0].trim();
+                boolean completada = Boolean.parseBoolean(partes[1].trim());
+                tareas.add(new Tarea(nombreTarea, completada));
+            } else {
+                System.err.println("Línea inválida (esperado: tarea;true/false): " + linea);
+            }
+        }
+    }
+
 
     /**
      * Agrega una nueva tarea y la guarda en el archivo.
@@ -76,7 +86,7 @@ public class DatosSesion {
      */
     private void guardarTareaEnArchivo(Tarea tarea) {
         try (FileWriter writer = new FileWriter(archivo, true)) {
-            writer.write(tarea.getDescripcion() + System.lineSeparator());
+            writer.write(tarea.getDescripcion() + ";" + tarea.getStatus() + System.lineSeparator());
         } catch (IOException e) {
             System.err.println("Error al guardar tarea: " + e.getMessage());
         }
@@ -110,7 +120,7 @@ public class DatosSesion {
             System.out.println("Tareas del usuario:");
             int i = 1;
             for (Tarea tarea : tareas) {
-                System.out.println(i++ + ". " + tarea.getDescripcion());
+                System.out.println(i++ + ". " + tarea.getDescripcion() + " - " + tarea.estaCompletada(tarea.getStatus()));
             }
         }
     }

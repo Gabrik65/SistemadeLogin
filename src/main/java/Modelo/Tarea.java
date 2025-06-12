@@ -12,7 +12,7 @@ public class Tarea {
      *
      * @param descripcion contenido de la tarea
      */
-    public Tarea(String descripcion, Boolean completada) {
+    public Tarea(String descripcion, boolean completada) {
         this.descripcion = descripcion;
         this.completada = completada;
     }
@@ -29,8 +29,16 @@ public class Tarea {
         return completada;
     }
 
-    public void setStatus(Boolean completada) {
+    public void setStatus(boolean completada) {
         this.completada = completada;
+    }
+
+    public String estaCompletada(boolean completa) {
+        if (completa){
+            return "Completada";
+        }else {
+            return "Incompleta";
+        }
     }
 
     @Override
