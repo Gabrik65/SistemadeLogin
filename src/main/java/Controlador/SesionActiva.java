@@ -4,6 +4,7 @@ import Modelo.DatosSesion;
 import Modelo.GestorUsuarios;
 import Modelo.Usuario;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -89,7 +90,16 @@ public class SesionActiva {
      */
     private void escribirTarea() {
         System.out.print("Ingrese la nueva tarea: ");
-        datosSesion.agregarTarea(scanner.nextLine());
+        String tarea = scanner.nextLine();
+        System.out.print("Tarea completada: (Y/N)");
+        String completed = scanner.nextLine();
+        do {
+            System.out.print("Opcion invalida");
+            System.out.print("¿Tarea completada? (Y/N): ");
+            completed = scanner.nextLine().trim();
+        } while (!completed.equalsIgnoreCase("Y") && !completed.equalsIgnoreCase("N"));
+        boolean completada = Objects.equals(completed, "Y");
+        datosSesion.agregarTarea(tarea, completada);
     }
 
     /**

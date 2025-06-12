@@ -48,8 +48,11 @@ public class DatosSesion {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String linea = scanner.nextLine().trim();
-                if (!linea.isEmpty()) {
-                    tareas.add(new Tarea(linea));
+                Boolean completed = false;
+                if (!linea.isEmpty() & completed) {
+                    tareas.add(new Tarea(linea,true));
+                } else if (!linea.isEmpty() & !completed) {
+                    tareas.add(new Tarea(linea,false));
                 }
             }
         } catch (IOException e) {
@@ -62,8 +65,8 @@ public class DatosSesion {
      *
      * @param descripcion texto de la tarea
      */
-    public void agregarTarea(String descripcion) {
-        Tarea nuevaTarea = new Tarea(descripcion);
+    public void agregarTarea(String descripcion, Boolean completed) {
+        Tarea nuevaTarea = new Tarea(descripcion, completed);
         tareas.add(nuevaTarea);
         guardarTareaEnArchivo(nuevaTarea);
     }
