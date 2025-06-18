@@ -1,0 +1,2 @@
+papan;alto;true
+pan;alto;true

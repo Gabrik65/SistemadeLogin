@@ -59,15 +59,23 @@ public class DatosSesion {
     private void readLine(String linea) {
         if (!linea.isEmpty()) {
             String[] partes = linea.split(";");
-            if (partes.length == 2) {
+            if (partes.length == 3) {
                 String nombreTarea = partes[0].trim();
-                boolean completada = Boolean.parseBoolean(partes[1].trim());
-                tareas.add(new Tarea(nombreTarea, completada));
+                String prioridadStr = partes[1].trim();
+                boolean completada = Boolean.parseBoolean(partes[2].trim());
+
+                Tarea.Prioridad prioridad = Tarea.Prioridad.fromString(prioridadStr);
+                if (prioridad != null) {
+                    tareas.add(new Tarea(nombreTarea, prioridad, completada));
+                } else {
+                    System.err.println("Prioridad inválida: " + prioridadStr);
+                }
             } else {
-                System.err.println("Línea inválida (esperado: tarea;true/false): " + linea);
+                System.err.println("Línea inválida (esperado: tarea;prioridad;true/false): " + linea);
             }
         }
     }
+
 
 
     /**
@@ -75,8 +83,8 @@ public class DatosSesion {
      *
      * @param descripcion texto de la tarea
      */
-    public void agregarTarea(String descripcion, Boolean completed) {
-        Tarea nuevaTarea = new Tarea(descripcion, completed);
+    public void agregarTarea(String descripcion, Tarea.Prioridad priority, Boolean completed) {
+        Tarea nuevaTarea = new Tarea(descripcion,priority, completed);
         tareas.add(nuevaTarea);
         guardarTareaEnArchivo(nuevaTarea);
     }
@@ -86,11 +94,16 @@ public class DatosSesion {
      */
     private void guardarTareaEnArchivo(Tarea tarea) {
         try (FileWriter writer = new FileWriter(archivo, true)) {
-            writer.write(tarea.getDescripcion() + ";" + tarea.getStatus() + System.lineSeparator());
+            writer.write(
+                    tarea.getDescripcion() + ";" +
+                            tarea.getPriority() + ";" +
+                            tarea.getStatus() + System.lineSeparator()
+            );
         } catch (IOException e) {
             System.err.println("Error al guardar tarea: " + e.getMessage());
         }
     }
+
 
 
     /**
@@ -120,7 +133,7 @@ public class DatosSesion {
             System.out.println("Tareas del usuario:");
             int i = 1;
             for (Tarea tarea : tareas) {
-                System.out.println(i++ + ". " + tarea.getDescripcion() + " - " + tarea.estaCompletada(tarea.getStatus()));
+                System.out.println(i++ + ". " + tarea.getDescripcion() + " - " + tarea.getPriority()+" - " + tarea.estaCompletada());
             }
         }
     }

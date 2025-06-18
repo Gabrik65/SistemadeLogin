@@ -5,16 +5,37 @@ package Modelo;
  */
 public class Tarea {
     private String descripcion;
-    private Boolean completada;
+    private Prioridad priority;
+    private boolean completada;
 
     /**
      * Constructor que inicializa la descripción de la tarea.
      *
      * @param descripcion contenido de la tarea
      */
-    public Tarea(String descripcion, boolean completada) {
+    public Tarea(String descripcion,Prioridad priority, boolean completada) {
         this.descripcion = descripcion;
+        this.priority = priority;
         this.completada = completada;
+    }
+
+    public enum Prioridad {
+        ALTO,
+        MEDIO,
+        BAJO;
+
+        public static Prioridad fromString(String input) {
+            for (Prioridad p : values()) {
+                if (p.name().equalsIgnoreCase(input)) {
+                    return p;
+                }
+            }
+            return null;
+        }
+
+        public static String[] nombres() {
+            return new String[]{ "alto", "medio", "bajo" };
+        }
     }
 
     public String getDescripcion() {
@@ -25,7 +46,11 @@ public class Tarea {
         this.descripcion = descripcion;
     }
 
-    public Boolean getStatus() {
+    public String getPriority() {
+        return priority.name().toLowerCase();
+    }
+
+    public boolean getStatus() {
         return completada;
     }
 
@@ -33,16 +58,17 @@ public class Tarea {
         this.completada = completada;
     }
 
-    public String estaCompletada(boolean completa) {
-        if (completa){
-            return "Completada";
-        }else {
-            return "Incompleta";
-        }
+    public String estaCompletada() {
+        return completada ? "Completada" : "Incompleta";
     }
+
 
     @Override
     public String toString() {
-        return descripcion;
+        return String.format("Tarea: %s | Prioridad: %s | Estado: %s",
+                descripcion,
+                priority.name().toLowerCase(),
+                estaCompletada());
     }
+
 }
