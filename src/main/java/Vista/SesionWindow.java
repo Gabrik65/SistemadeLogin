@@ -5,20 +5,10 @@ import Modelo.Tarea;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.PrintStream;
 
 public class SesionWindow extends JFrame {
 
     private final SesionActiva sesionActiva;
-
-    private final int anchoBoton = 500;
-    private final int altoBoton = 80;
-
-    private final ImageIcon iconoNormal = escalarIcono(
-            new ImageIcon("src/main/resources/icons/button_rectangle_depth_border.png"), anchoBoton, altoBoton);
-
-    private final ImageIcon iconoHover = escalarIcono(
-            new ImageIcon("src/main/resources/icons/button_rectangle_depth_gloss.png"), anchoBoton, altoBoton);
 
     public SesionWindow(SesionActiva sesionActiva) {
         this.sesionActiva = sesionActiva;
@@ -34,14 +24,20 @@ public class SesionWindow extends JFrame {
         gbc.fill = GridBagConstraints.NONE;
 
         // Botones visuales
+        int anchoBoton = 500;
+        int altoBoton = 80;
+        ImageIcon iconoNormal = escalarIcono(
+                new ImageIcon("src/main/resources/icons/button_rectangle_depth_border.png"), anchoBoton, altoBoton);
+        ImageIcon iconoHover = escalarIcono(
+                new ImageIcon("src/main/resources/icons/button_rectangle_depth_gloss.png"), anchoBoton, altoBoton);
         JButton btnVerTareas = crearBotonConHover("1. Ver tareas", iconoNormal, iconoHover);
         JButton btnEscribirTarea = crearBotonConHover("2. Escribir nueva tarea", iconoNormal, iconoHover);
         JButton btnRegistrar = crearBotonConHover("3. Registrar nuevo usuario", iconoNormal, iconoHover);
         JButton btnSalir = crearBotonConHover("4. Cerrar sesión", iconoNormal, iconoHover);
 
-        btnVerTareas.addActionListener(e -> verTareas());
-        btnEscribirTarea.addActionListener(e -> escribirTarea());
-        btnSalir.addActionListener(e -> {
+        btnVerTareas.addActionListener(_ -> verTareas());
+        btnEscribirTarea.addActionListener(_ -> escribirTarea());
+        btnSalir.addActionListener(_ -> {
             JOptionPane.showMessageDialog(this, "Sesión cerrada.");
             dispose();
             new LoginWindow();
@@ -51,7 +47,7 @@ public class SesionWindow extends JFrame {
         add(btnEscribirTarea,gbc);
 
         if (sesionActiva.esAdmin()) {
-            btnRegistrar.addActionListener(e -> registrarUsuario());
+            btnRegistrar.addActionListener(_ -> registrarUsuario());
             add(btnRegistrar,gbc);
         }
 
