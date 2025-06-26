@@ -1,2 +1,4 @@
 papan;alto;true
 pan;alto;true
+queso;medio;false
+Patapon;alto;true

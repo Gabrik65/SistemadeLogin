@@ -5,7 +5,6 @@ import Modelo.GestorUsuarios;
 import Modelo.Tarea;
 import Modelo.Usuario;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -77,7 +76,7 @@ public class SesionActiva {
         System.out.println("Sesión cerrada.");
     }
 
-    private boolean esAdmin() {
+    public boolean esAdmin() {
         return "admin".equals(usuario.getNombre());
     }
 
@@ -169,4 +168,26 @@ public class SesionActiva {
             return false;
         }
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void mostrarTareas() {
+        datosSesion.mostrarTareas();
+    }
+
+    public void agregarTarea(String desc, Tarea.Prioridad prioridad, boolean completada) {
+        datosSesion.agregarTarea(desc, prioridad, completada);
+    }
+
+    public boolean registrarNuevoUsuario(String usuarioNuevo, String clave) {
+        GestorUsuarios gestor = new GestorUsuarios();
+        return gestor.registrar(usuarioNuevo, clave);
+    }
+
+    public java.util.List<Tarea> getTareas() {
+        return datosSesion.getTareas();
+    }
+
 }

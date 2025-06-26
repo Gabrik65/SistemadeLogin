@@ -32,10 +32,6 @@ public class Tarea {
             }
             return null;
         }
-
-        public static String[] nombres() {
-            return new String[]{ "alto", "medio", "bajo" };
-        }
     }
 
     public String getDescripcion() {
@@ -62,6 +58,9 @@ public class Tarea {
         return completada ? "Completada" : "Incompleta";
     }
 
+    public boolean isComplete() {
+        return completada;
+    }
 
     @Override
     public String toString() {
